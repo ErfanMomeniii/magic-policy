@@ -21,11 +21,11 @@
     "doctrine/dbal": "^v2.5.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^5"
+    "../../../vendor/phpunit/phpunit": "^5"
   },
   "autoload": {
     "psr-4": {
-      "erfanmomeniii\\magicpolicy\\": "src"
+      "\\erfanmomeniii\\magicpolicy\\": "src"
     }
   },
   "autoload-dev": {
@@ -43,9 +43,10 @@
   "extra": {
     "laravel": {
       "providers" : [
-        "erfanmomeniii\\magicpolicy\\ServiceProvider\\MagicPolicyServiceProvider"
+        "\\erfanmomeniii\\magicpolicy\\src\\providers\\MagicPolicyServiceProvider\\"
       ],
       "aliases": {
+        "magicpolicy": "\\erfanmomeniii\\src\\Facade\\MagicPolicy\\"
       }
     }
   }
