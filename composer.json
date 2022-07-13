@@ -6,7 +6,7 @@
     "magic policy",
     "laravel policy"
   ],
-  "homepage": "https://github.com/",
+  "homepage": "https://github.com/erfanmomeniii/magic-policy",
   "license": "MIT",
   "authors": [
     {
@@ -21,11 +21,11 @@
     "doctrine/dbal": "^v2.5.0"
   },
   "require-dev": {
-    "../../../vendor/phpunit/phpunit": "^5"
+    "../../../../../vendor/phpunit/phpunit": "^5"
   },
   "autoload": {
     "psr-4": {
-      "\\erfanmomeniii\\magicpolicy\\": "src"
+      "erfanmomeniii\\magicpolicy\\": "src"
     }
   },
   "autoload-dev": {
@@ -43,10 +43,10 @@
   "extra": {
     "laravel": {
       "providers" : [
-        "\\erfanmomeniii\\magicpolicy\\src\\providers\\MagicPolicyServiceProvider\\"
+        "erfanmomeniii\\magicpolicy\\providers\\MagicPolicyServiceProvider"
       ],
       "aliases": {
-        "magicpolicy": "\\erfanmomeniii\\src\\Facade\\MagicPolicy\\"
+        "magicpolicy": "erfanmomeniii\\magicpolicy\\Facade\\MagicPolicy"
       }
     }
   }

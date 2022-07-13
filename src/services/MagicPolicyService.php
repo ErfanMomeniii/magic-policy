@@ -19,16 +19,13 @@ class MagicPolicyService
                 throw new \Exception();
             }
         }
-        $role->users()->attach($user->id);
 
-        return;
+        $role->users()->attach($user->id);
     }
 
     public function addPermissionToRole(Permission $permission, Role $role)
     {
         $role->permissions()->attach($permission->id);
-
-        return;
     }
 
     public function addExtraPermissionToUser(Permission $permission, User $user = null)
@@ -44,11 +41,14 @@ class MagicPolicyService
         $userExtraPermission = new UserExtraPermission();
         $userExtraPermission->permission_id = $permission->id;
         $userExtraPermission->user_id = $user->id;
-
-        return;
+        $userExtraPermission->save();
     }
 
-    public function checkPermissionForUserByTitle($title,User $user = null){
+    /**
+     * @throws \Exception
+     */
+    public function checkPermissionForUserByTitle($title, User $user = null)
+    {
         if ($user == null) {
             if (Auth::check()) {
                 $user = Auth::user();
@@ -56,5 +56,40 @@ class MagicPolicyService
                 throw new \Exception();
             }
         }
+
+        $permission = Permission::where('title', '=', $title)->firstOrFail();
+
+        return $this->checkPermissionForUser($permission, $user);
+    }
+
+    public function checkPermissionForUser(Permission $permission, User $user = null)
+    {
+        if ($user == null) {
+            if (Auth::check()) {
+                $user = Auth::user();
+            } else {
+                throw new \Exception();
+            }
+        }
+
+        $answer = false;
+
+        if (config('magicpolicy.check_extra_permissions')) {
+            $answer = UserExtraPermission::where('user_id', '=', $user->id)
+                ->where('permission_id', '=', $permission->id)->firstOrFail() != null ? true : $answer;
+        }
+
+        $roles = $permission->roles();
+
+        foreach ($roles as $role) {
+            $foundUsers = $role->users();
+            foreach ($foundUsers as $foundUser) {
+                if ($foundUser->id == $user->id) {
+                    return true;
+                }
+            }
+        }
+
+        return $answer;
     }
 }

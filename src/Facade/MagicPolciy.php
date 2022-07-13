@@ -1,4 +1,5 @@
 <?php
+namespace erfanmomeniii\magicpolicy\Facade;
 
 use Illuminate\Support\Facades\Facade;
 

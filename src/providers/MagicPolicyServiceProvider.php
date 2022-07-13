@@ -14,7 +14,7 @@ class MagicPolicyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('magicpolicy',function(){
+        $this->app->bind('magicpolicy', function () {
             return new MagicPolicyService();
         });
     }
